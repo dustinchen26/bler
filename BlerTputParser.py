@@ -44,7 +44,8 @@ def parse_stats(filename):
                         if "DL-SUCC   DL-NEWTX    DL-RETX" in lines[index]:
                             break
                 else:
-                    bler = dl_retx / dl_succ
+                    #bler = dl_retx / dl_succ
+                    bler = dl_retx / (dl_newtx + dl_retx)
 
                     # Continue searching for SCH DL Throughput and UL Throughput
                     while index < len(lines):
