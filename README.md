@@ -8,7 +8,10 @@ file: BlerTputParser.py
 ```
 Input the du_stats_XXX.txt, then it will parse the ( DL-SUCC, DL-NEWTX, DL-RETX, BLER, SCH  DL Tpt, UL Tpt )  
 
-BLER = DL-RETX / DL-SUCC
+BLER = DL-RETX / (DL-NEWTX +DL-RETX)
+計算應該是 BLER = 重傳/新傳+重傳  會更為準確
+雖然差距不大就是
+除非很多4次重傳都fail 要不然薪傳+重傳應該=成功數量
 
 ex: 
 【Input file】: du_stats_23_08_15_15_14_06.txt
