@@ -10,6 +10,14 @@
 
 import glob
 import re
+import os
+
+# Check if parse_DL_BLER_results.txt exists and delete it if it does
+if os.path.exists("parse_DL_BLER_results.txt"):
+    os.remove("parse_DL_BLER_results.txt")
+    print("Deleted existing parse_DL_BLER_results.txt")
+else:
+    print("parse_DL_BLER_results.txt does not exist.")
 
 def parse_stats(filename):
     results = []
