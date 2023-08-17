@@ -5,7 +5,7 @@
   
   Description: 
   Input the du_stats_XXX.txt, then it will parse the ( DL-SUCC, DL-NEWTX, DL-RETX, BLER, SCH  DL Tpt, UL Tpt )  
-  (Note) BLER = DL-RETX / DL-SUCC
+  (Note) BLER = DL-RETX / (DL-NEWTX + DL-RETX )
 """  
 
 import glob
