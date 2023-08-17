@@ -1,3 +1,13 @@
+"""
+  Copyright © [2023] [Dustin_Chen]. All rights reserved.
+  Author: Dustin_Chen
+  Email:  Dustin_Chen@compal.com or chuhpsdustin@gmail.com
+  
+  Description: 
+  Input the du_stats_XXX.txt, then it will parse the ( DL-SUCC, DL-NEWTX, DL-RETX, BLER, SCH  DL Tpt, UL Tpt )  
+  (Note) BLER = DL-RETX / DL-SUCC
+"""  
+
 import glob
 import re
 
