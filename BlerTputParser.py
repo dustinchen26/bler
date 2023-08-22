@@ -37,40 +37,40 @@ def parse_stats(filename):
                     dl_succ = int(next_line_values[9])
                     dl_newtx = int(next_line_values[10])
                     dl_retx = int(next_line_values[11])
-
+                    dl_bler = None
                     if dl_succ != 0:
                         dl_bler = dl_retx / (dl_newtx + dl_retx)
 
-                        # Parsing UL statistics
-                        ul_section_found = False
-                        for ul_index in range(index + 1, len(lines)):
-                            ul_line = lines[ul_index]
-                            if "UL-NEWTX   UL-RETX" in ul_line:
-                                ul_stats = lines[ul_index + 1].split()
-                                if len(ul_stats) >= 10:
-                                    ul_succ = int(ul_stats[7])
-                                    ul_newtx = int(ul_stats[8])
-                                    ul_retx = int(ul_stats[9])
-                                    if ul_succ != 0:
-                                        ul_bler = ul_retx / (ul_newtx + ul_retx)
-                                    else:
-                                        ul_bler = None
-                                    ul_section_found = True
-                                    break
+                    # Parsing UL statistics
+                    ul_section_found = False
+                    for ul_index in range(index + 1, len(lines)):
+                        ul_line = lines[ul_index]
+                        if "UL-NEWTX   UL-RETX" in ul_line:
+                            ul_stats = lines[ul_index + 1].split()
+                            if len(ul_stats) >= 10:
+                                ul_succ = int(ul_stats[7])
+                                ul_newtx = int(ul_stats[8])
+                                ul_retx = int(ul_stats[9])
+                                if ul_succ != 0:
+                                    ul_bler = ul_retx / (ul_newtx + ul_retx)
+                                else:
+                                    ul_bler = None
+                                ul_section_found = True
+                                break
 
-                        if ul_section_found:
-                            while index < len(lines):
-                                if "SCH  DL Tpt" in lines[index]:
-                                    sch_dl_tpt_match = re.search(r'SCH\s+DL\s+Tpt\s+:\s+(\d+\.\d+)', lines[index])
-                                    if sch_dl_tpt_match:
-                                        sch_dl_tpt = float(sch_dl_tpt_match.group(1))
-                                        if "UL Tpt" in lines[index]:
-                                            ul_tpt_match = re.search(r'UL\s+Tpt\s+(\d+\.\d+)', lines[index])
-                                            if ul_tpt_match:
-                                                ul_tpt = float(ul_tpt_match.group(1))
-                                                results.append((dl_succ, dl_newtx, dl_retx, dl_bler, sch_dl_tpt, ul_succ, ul_newtx, ul_retx, ul_bler, ul_tpt))
-                                                break
-                                index += 1
+                    if ul_section_found:
+                        while index < len(lines):
+                            if "SCH  DL Tpt" in lines[index]:
+                                sch_dl_tpt_match = re.search(r'SCH\s+DL\s+Tpt\s+:\s+(\d+\.\d+)', lines[index])
+                                if sch_dl_tpt_match:
+                                    sch_dl_tpt = float(sch_dl_tpt_match.group(1))
+                                    if "UL Tpt" in lines[index]:
+                                        ul_tpt_match = re.search(r'UL\s+Tpt\s+(\d+\.\d+)', lines[index])
+                                        if ul_tpt_match:
+                                            ul_tpt = float(ul_tpt_match.group(1))
+                                            results.append((dl_succ, dl_newtx, dl_retx, dl_bler, sch_dl_tpt, ul_succ, ul_newtx, ul_retx, ul_bler, ul_tpt))
+                                            break
+                            index += 1
 
             index += 1
             
