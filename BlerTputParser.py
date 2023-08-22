@@ -4,8 +4,8 @@
   Email:  Dustin_Chen@compal.com or chuhpsdustin@gmail.com
   
   Description: 
-  Input the du_stats_XXX.txt, then it will parse the ( DL-SUCC, DL-NEWTX, DL-RETX, BLER, SCH  DL Tpt, UL Tpt )  
-  (Note) BLER = DL-RETX / (DL-NEWTX + DL-RETX )
+  Input the du_stats_XXX.txt, then it will parse the ( DL-SUCC, DL-NEWTX, DL-RETX, DL_BLER, SCH  DL Tpt, UL Tpt )  
+  (Note) DL_BLER = DL-RETX / (DL-NEWTX + DL-RETX )
 """  
 import glob
 import re
@@ -39,7 +39,7 @@ def parse_stats(filename):
                     dl_retx = int(next_line_values[11])
 
                     if dl_succ != 0:
-                        bler = dl_retx / (dl_newtx + dl_retx)
+                        dl_bler = dl_retx / (dl_newtx + dl_retx)
 
                         while index < len(lines):
                             if "SCH  DL Tpt" in lines[index]:
@@ -50,7 +50,7 @@ def parse_stats(filename):
                                         ul_tpt_match = re.search(r'UL\s+Tpt\s+(\d+\.\d+)', lines[index])
                                         if ul_tpt_match:
                                             ul_tpt = float(ul_tpt_match.group(1))
-                                            results.append((dl_succ, dl_newtx, dl_retx, bler, sch_dl_tpt, ul_tpt))
+                                            results.append((dl_succ, dl_newtx, dl_retx, dl_bler, sch_dl_tpt, ul_tpt))
                                             break
                             index += 1
 
@@ -65,12 +65,12 @@ if file_list:
     for filename in file_list:
         results = parse_stats(filename)
         if results:
-            for dl_succ, dl_newtx, dl_retx, bler, sch_dl_tpt, ul_tpt in results:
-                if bler is not None:
-                    formatted_bler = "{:.5f}".format(bler)
+            for dl_succ, dl_newtx, dl_retx, dl_bler, sch_dl_tpt, ul_tpt in results:
+                if dl_bler is not None:
+                    formatted_dl_bler = "{:.5f}".format(dl_bler)
                 else:
-                    formatted_bler = "N/A"
-                output_line = "DL-SUCC: {:<6} DL-NEWTX: {:<6} DL-RETX: {:<6} BLER: {:<12} SCH  DL Tpt: {:<10} UL Tpt: {:<10}".format(dl_succ, dl_newtx, dl_retx, formatted_bler, sch_dl_tpt, ul_tpt)
+                    formatted_dl_bler = "N/A"
+                output_line = "DL-SUCC: {:<6} DL-NEWTX: {:<6} DL-RETX: {:<6} DL_BLER: {:<12} SCH  DL Tpt: {:<10} UL Tpt: {:<10}".format(dl_succ, dl_newtx, dl_retx, formatted_dl_bler, sch_dl_tpt, ul_tpt)
                 print(output_line)
                 with open("parse_DL_BLER_results.txt", "a") as output_file:
                     output_file.write(output_line + "\n")
