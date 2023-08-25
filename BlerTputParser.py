@@ -5,7 +5,8 @@
   
   Description: 
   Input the du_stats_XXX.txt, then it will parse the 
-  (SCH  DL Tpt, UL Tpt, DL-TX, DL-RETX, DL-BLER, DL-MCS, UL-CRC-SUCC, UL-CRC-FAIL, UL-BLER, UL-MCS)
+  (SCH  DL Tpt, UL Tpt, DL-TX, DL-RETX, DL-BLER, DL-MCS, UL-CRC-SUCC, UL-CRC-FAIL, UL-BLER, UL-MCS) results.
+  formula:
     dl_bler = DL-RETX / (DL-RETX + DL-TX)
     ul_bler = UL-CRC-FAIL / (UL-CRC-SUCC + UL-CRC-FAIL)
 """  
@@ -46,38 +47,38 @@ def parse_stats(filename):
                 try:
                     next_line_values = lines[i + 1].split()
                     if len(next_line_values) >= 31:
-                        ue_id = next_line_values[0]
-                        cell_id = next_line_values[1]
-                        on_sul = next_line_values[2]
+                        # ue_id = next_line_values[0]
+                        # cell_id = next_line_values[1]
+                        # on_sul = next_line_values[2]
                         dl_tx = next_line_values[3]
                         dl_retx = next_line_values[4]
                         # Expand the list to include all the parameters
-                        ack_tb_0 = next_line_values[5]
-                        nack_tb_0 = next_line_values[6]
-                        bler_tb_0 = next_line_values[7]
-                        dtx_tb_0 = next_line_values[8]
-                        ack_tb_1 = next_line_values[9]
-                        nack_tb_1 = next_line_values[10]
-                        bler_tb_1 = next_line_values[11]
-                        dtx_tb_1 = next_line_values[12]
+                        # ack_tb_0 = next_line_values[5]
+                        # nack_tb_0 = next_line_values[6]
+                        # bler_tb_0 = next_line_values[7]
+                        # dtx_tb_0 = next_line_values[8]
+                        # ack_tb_1 = next_line_values[9]
+                        # nack_tb_1 = next_line_values[10]
+                        # bler_tb_1 = next_line_values[11]
+                        # dtx_tb_1 = next_line_values[12]
                         dl_mcs = next_line_values[13]
-                        dl_ri_per = next_line_values[14]
-                        dl_cqi_per = next_line_values[15]
-                        ul_rx = next_line_values[16]
-                        ul_retx = next_line_values[17]
+                        # dl_ri_per = next_line_values[14]
+                        # dl_cqi_per = next_line_values[15]
+                        # ul_rx = next_line_values[16]
+                        # ul_retx = next_line_values[17]
                         ul_crc_succ = next_line_values[18]
                         ul_crc_fail = next_line_values[19]
-                        ul_crc_dtx = next_line_values[20]
-                        ul_cqi = next_line_values[21]
+                        # ul_crc_dtx = next_line_values[20]
+                        # ul_cqi = next_line_values[21]
                         ul_mcs = next_line_values[22]
-                        ul_ri = next_line_values[23]
-                        num_bsr = next_line_values[24]
-                        shr_bsr = next_line_values[25]
-                        st_bsr = next_line_values[26]
-                        lng_bsr = next_line_values[27]
-                        lt_bsr = next_line_values[28]
-                        num_csi = next_line_values[29]
-                        num_srs = next_line_values[30]
+                        # ul_ri = next_line_values[23]
+                        # num_bsr = next_line_values[24]
+                        # shr_bsr = next_line_values[25]
+                        # st_bsr = next_line_values[26]
+                        # lng_bsr = next_line_values[27]
+                        # lt_bsr = next_line_values[28]
+                        # num_csi = next_line_values[29]
+                        # num_srs = next_line_values[30]
                     else:
                         dl_tx = dl_retx = dl_mcs = ul_crc_succ = ul_crc_fail = ul_mcs = "NaN"
 
